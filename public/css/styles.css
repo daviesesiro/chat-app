@@ -202,11 +202,19 @@ button:disabled {
     position: fixed;
     bottom: 0;
     display: flex;
+    flex: 1;
     margin-top: 16px;
+    /* margin-bottom: 16px; */
     padding:  20px;
     min-width: 80%;
     max-height: 400px;
     align-items: center;
+}
+
+@media screen and  (max-width: 500px){
+    .compose {
+    min-width: 100%;
+}
 }
 
 .compose__message {
