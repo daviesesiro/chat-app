@@ -97,6 +97,12 @@ button:disabled {
     overflow-y: scroll
 }
 
+@media screen and (max-width: 500px){
+    .chat__sidebar{
+        display: none;
+    }
+}
+
 /* Chat styles */
 
 .chat__main {
@@ -107,6 +113,8 @@ button:disabled {
 }
 
 .chat__messages {
+    display: flex;
+    flex-direction: column;
     flex-grow: 1;
     padding: 24px 24px 0 24px;
     overflow-y: scroll;
@@ -115,17 +123,36 @@ button:disabled {
 /* Message Styles */
 
 .message {
-    margin-bottom: 16px;   
+    margin-bottom: 16px;  
+    padding: 5px 10px;
+    border-radius: 10px;
+    border-top-left-radius: 0;
+    background-color: #c7b7e7;
+    color: #100427;
+
+}
+
+.message.true{
+    text-align: right;
+    background-color: #9b71ee;
+    align-self: right;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 0;
+}
+
+.message.true .message__name{
+    color: #641ceb;
 }
 
 .message__name {
+    color: #9b71ee;
     font-weight: 600;
     font-size: 14px;
     margin-right: 8px;
 }
 
 .message__meta {
-    color: #777;
+    color: rgb(255, 255, 255);
     font-size: 14px;
 }
 

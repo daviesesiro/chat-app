@@ -35,9 +35,11 @@ const autoscroll = () => {
     }
 }
 
-socket.on('message', ({ username, text, createdAt }) => {
+socket.on('message', ({ id, username, text, createdAt }) => {
+    const isMe = socket.id === id;
     const html = Mustache.render(messageTemplate, {
-        username,
+        isMe,
+        username: isMe ? 'Me' : username,
         message: text,
         createdAt: moment(createdAt).format('h:mm a')
     })
@@ -45,9 +47,11 @@ socket.on('message', ({ username, text, createdAt }) => {
     autoscroll();
 })
 
-socket.on('locationMessage', ({ url, createdAt }) => {
+socket.on('locationMessage', ({ id, url, createdAt }) => {
+    const isMe = socket.id == id;
     const html = Mustache.render(locationTemplate, {
-        username,
+        isMe,
+        username: isMe ? 'Me' : username,
         url,
         createdAt: moment(createdAt).format('h:mm a')
     })
@@ -70,6 +74,7 @@ $messageForm.onsubmit = (e) => {
         $sendBtn.setAttribute('disabled', 'true')
         $sendBtn.innerText = 'Sending...'
         $messageInput.setAttribute('disabled', 'true')
+
         //emitting new message 
         socket.emit('sendMessage', newMessage, (error) => {
             $sendBtn.removeAttribute('disabled')
@@ -78,8 +83,9 @@ $messageForm.onsubmit = (e) => {
             if (error) {
                 return console.log(error)
             }
-            // console.log('Message delivered')
+
             $messageInput.value = ''
+            $messageInput.focus();
         });
 
     }

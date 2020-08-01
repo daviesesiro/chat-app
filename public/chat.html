@@ -24,7 +24,7 @@
     </div>
 
     <script id="message-template" type="text/html">
-        <div class='message'>
+        <div class='message {{ isMe }}'>
             <p> 
                 <span class='message__name'>{{ username }}</span>
                 <span class="message__meta">{{ createdAt }}</span>
@@ -33,12 +33,12 @@
         </div>
     </script>
     <script id="location-message-template" type="text/html">
-        <div>
+        <div class='message {{ isMe }}' >
             <p> 
                 <span class='message__name'>{{ username }}</span>
                 <span class="message__meta">{{ createdAt }}</span>
             </p>
-            <p><a href="{{ url }}" target='_blank'>My current location</a></p>    
+            <p><a href="{{ url }}" target='_blank'>Locate Me!</a></p>    
         </div>
     </script>
 
