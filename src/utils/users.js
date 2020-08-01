@@ -36,7 +36,6 @@ exports.getUser = (id) => (
 )
 
 exports.getUsersInRoom = (room) => {
-    room = room.trim().toLowerCase();
     return users.filter((user) => user.room === room);
 }
 

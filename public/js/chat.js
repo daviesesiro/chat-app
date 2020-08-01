@@ -8,10 +8,32 @@ const $messageForm = document.getElementById('message-form')
 //templates
 const messageTemplate = document.getElementById('message-template').innerHTML
 const locationTemplate = document.getElementById('location-message-template').innerHTML
-
+const sidebarTemplate = document.getElementById('sidebar-template').innerHTML;
 //Options
 const { username, room } = Qs.parse(location.search, { ignoreQueryPrefix: true })
 
+const autoscroll = () => {
+    // New message element
+    const $newMessage = $messages.lastElementChild
+
+    //height of the new message
+    const newMessageStyles = getComputedStyle($newMessage);
+    const newMessageMargin = parseInt(newMessageStyles.marginBottom)
+    const newMessageHeight = $newMessage.offsetHeight + newMessageMargin;
+
+    //visitble height
+    const visibleHeight = $messages.offsetHeight;
+
+    //height of messages container
+    const containerHeight = $messages.scrollHeight;
+
+    //how far have i scrolled
+    const scrollOffset = $messages.scrollTop + visibleHeight
+
+    if (containerHeight - newMessageHeight - 40 <= scrollOffset) {
+        $messages.scrollTop = $messages.scrollHeight;
+    }
+}
 
 socket.on('message', ({ username, text, createdAt }) => {
     const html = Mustache.render(messageTemplate, {
@@ -19,20 +41,29 @@ socket.on('message', ({ username, text, createdAt }) => {
         message: text,
         createdAt: moment(createdAt).format('h:mm a')
     })
-    $messages.insertAdjacentHTML('beforeend', html)
+    $messages.insertAdjacentHTML('beforeend', html);
+    autoscroll();
 })
 
 socket.on('locationMessage', ({ url, createdAt }) => {
-    console.log({ url, createdAt })
     const html = Mustache.render(locationTemplate, {
         username,
         url,
         createdAt: moment(createdAt).format('h:mm a')
     })
     $messages.insertAdjacentHTML("beforeend", html)
+    autoscroll();
 })
 
-$messageForm.onclick = (e) => {
+socket.on('roomData', ({ room, users }) => {
+    const html = Mustache.render(sidebarTemplate, {
+        room,
+        users
+    });
+    document.getElementById('sidebar').innerHTML = html
+})
+
+$messageForm.onsubmit = (e) => {
     e.preventDefault();
     if (message && $messageInput.value) {
         const newMessage = $messageInput.value
@@ -68,7 +99,6 @@ sendBtnLocation.onclick = () => {
             longitude: position.coords.longitude
         }, message => {
             sendBtnLocation.removeAttribute('disabled')
-            console.log(message)
         })
     })
 }
