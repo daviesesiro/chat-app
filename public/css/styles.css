@@ -84,17 +84,39 @@ button:disabled {
 }
 
 /* Chat Page Layout */
+.body{
+    background-color: #100427;
+    position: relative;
+    width: 100vw;
+    min-height: 100vh;
+    overflow: hidden;
+}
 
+.content{
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
 .chat {
     display: flex;
+    width: 100%;
+    /* max-width: 1500px; */
+    height: 100%;
+    /* max-height: 800px; */
+    margin: auto;
+    background-color: #131424;
 }
 
 .chat__sidebar {
-    height: 100vh;
     color: white;
     background: #333744;
-    width: 225px;
-    overflow-y: scroll
+    width: 20%;
+    overflow-y: scroll;
+    flex: 0 0 20%;
 }
 
 @media screen and (max-width: 500px){
@@ -106,10 +128,15 @@ button:disabled {
 /* Chat styles */
 
 .chat__main {
-    flex-grow: 1;
+    flex: 0 0 80%;
     display: flex;
     flex-direction: column;
     max-height: 100vh;
+}
+@media screen and (max-width: 500px){
+    .chat__main{
+        flex: 1;
+    }
 }
 
 .chat__messages {
@@ -118,6 +145,7 @@ button:disabled {
     flex-grow: 1;
     padding: 24px 24px 0 24px;
     overflow-y: scroll;
+    width: 100%;
 }
 
 /* Message Styles */
@@ -129,15 +157,18 @@ button:disabled {
     border-top-left-radius: 0;
     background-color: #c7b7e7;
     color: #100427;
-
+    width: fit-content;
+    max-width: 50%
 }
 
 .message.true{
     text-align: right;
     background-color: #9b71ee;
     align-self: right;
+    justify-self: right;
     border-top-left-radius: 10px;
     border-top-right-radius: 0;
+    margin-left: auto;
 }
 
 .message.true .message__name{
@@ -160,33 +191,53 @@ button:disabled {
     color: #0070CC;
 }
 
+.message__text{
+    word-wrap: break-word;
+}
+
 /* Message Composition Styles */
 
 .compose {
     display: flex;
-    flex-shrink: 0;
     margin-top: 16px;
-    padding: 24px;
+    padding:  20px;
+    min-width: 80%;
+    max-height: 400px;
+    align-items: center;
+    position: relative;
 }
 
-.compose form {
-    display: flex;
-    flex-grow: 1;
-    margin-right: 16px;
-}
-
-.compose input {
-    border: 1px solid #eeeeee;
+.compose__message {
+    flex: 1 1 80%d;
     width: 100%;
-    padding: 12px;
-    margin: 0 16px 0 0;
-    flex-grow: 1;
+    padding: 10px;
+    margin: 0 10px 0 0;
+    border-radius: 12px;
+    max-height: 75px;
+    min-height: 45px;
+    overflow-y: auto;
+    background-color: white;
+    word-wrap: break-word;
 }
 
-.compose button {
-    font-size: 14px;
+.compose__btn {
+    display: flex;
+    height: 50px;
+    font-size: 10px;
 }
 
+.compose__sendBtn{
+    margin-right: 5px;
+}
+
+.placeholder{
+    position: absolute;
+    left: 3%;
+    bottom: 40%;
+    color: grey;
+    font-size: 15px;
+
+}
 /* Chat Sidebar Styles */
 
 .room-title {

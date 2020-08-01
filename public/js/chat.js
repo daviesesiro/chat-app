@@ -3,7 +3,6 @@ const socket = io();
 const $sendBtn = document.getElementById('sendbtn');
 const $messageInput = document.getElementById('message');
 const $messages = document.getElementById('messages')
-const $messageForm = document.getElementById('message-form')
 
 //templates
 const messageTemplate = document.getElementById('message-template').innerHTML
@@ -67,13 +66,20 @@ socket.on('roomData', ({ room, users }) => {
     document.getElementById('sidebar').innerHTML = html
 })
 
-$messageForm.onsubmit = (e) => {
-    e.preventDefault();
-    if (message && $messageInput.value) {
-        const newMessage = $messageInput.value
-        $sendBtn.setAttribute('disabled', 'true')
-        $sendBtn.innerText = 'Sending...'
-        $messageInput.setAttribute('disabled', 'true')
+document.getElementById('message').onkeydown = () => {
+    // console.log($messageInput.innerText.length === 1)
+    if ($messageInput.innerText.length === ' ') {
+        return document.getElementById('placeholder').style.display = 'block'
+
+    }
+    document.getElementById('placeholder').style.display = 'none'
+}
+
+$sendBtn.onclick = () => {
+    console.log($messageInput.innerText !== '')
+    console.log($messageInput.innerText.length)
+    if ($messageInput.innerText.length > 1) {
+        const newMessage = $messageInput.innerText
 
         //emitting new message 
         socket.emit('sendMessage', newMessage, (error) => {
@@ -84,7 +90,7 @@ $messageForm.onsubmit = (e) => {
                 return console.log(error)
             }
 
-            $messageInput.value = ''
+            $messageInput.innerText = ''
             $messageInput.focus();
         });
 

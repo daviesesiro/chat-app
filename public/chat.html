@@ -7,20 +7,23 @@
     <link rel="stylesheet" href="css/styles.css">
     <title>Chat App</title>
 </head>
-<body>
-    <div class="chat">
-        <div class="chat__sidebar" id="sidebar"></div>
-        <div class="chat__main">
-            <div id="messages" class="chat__messages"></div>
-            <div class="compose">
-                <form id="message-form">
-                    <input type="text" autocomplete="off" id="message" placeholder="Type a message">    
-                    <button  id="sendbtn">Send</button>
-                </form>
-                <button id="send-location">Send location</button>
+<body class="body">
+    <div class="content">
+        <div class="chat">
+            <div class="chat__sidebar" id="sidebar"></div>
+            <div class="chat__main">
+                <div id="messages" class="chat__messages"></div>
+                <div class="compose">
+                    <div  contenteditable="true" class="compose__message" id="message"></div>
+                    <div class="compose__btn">
+                        <p id="placeholder" class="placeholder">Type a message</p>
+                        <button class="compose__sendBtn" id="sendbtn">Send</button>
+                        <button class="compose__locationBtn" id="send-location">Send location</button>
+                    </div>
+                </div>                
             </div>
-            
         </div>
+
     </div>
 
     <script id="message-template" type="text/html">
@@ -29,7 +32,7 @@
                 <span class='message__name'>{{ username }}</span>
                 <span class="message__meta">{{ createdAt }}</span>
             </p>
-            <p>{{ message }}</p>    
+            <p class='message__text'>{{ message }}</p>
         </div>
     </script>
     <script id="location-message-template" type="text/html">
