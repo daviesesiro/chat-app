@@ -116,7 +116,7 @@ button:disabled {
     background: #333744;
     width: 20%;
     overflow-y: scroll;
-    flex: 0 0 20%;
+    flex: 1 1 20%;
 }
 
 @media screen and (max-width: 500px){
@@ -128,7 +128,7 @@ button:disabled {
 /* Chat styles */
 
 .chat__main {
-    flex: 0 0 80%;
+    flex: 1 1 80%;
     display: flex;
     flex-direction: column;
     max-height: 100vh;
@@ -146,6 +146,7 @@ button:disabled {
     padding: 24px 24px 0 24px;
     overflow-y: scroll;
     width: 100%;
+    margin-bottom: 80px;
 }
 
 /* Message Styles */
@@ -198,17 +199,18 @@ button:disabled {
 /* Message Composition Styles */
 
 .compose {
+    position: fixed;
+    bottom: 0;
     display: flex;
     margin-top: 16px;
     padding:  20px;
     min-width: 80%;
     max-height: 400px;
     align-items: center;
-    position: relative;
 }
 
 .compose__message {
-    flex: 1 1 80%d;
+    flex: 1 1 80%;
     width: 100%;
     padding: 10px;
     margin: 0 10px 0 0;
